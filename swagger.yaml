@@ -1,0 +1,239 @@
+openapi: 3.0.0
+info:
+  title: Farm Management API
+  description: API documentation for managing farmers, farms, devices, fields, and telemetry data.
+  version: 1.0.0
+servers:
+  - url: http://localhost
+    description: Development server
+
+paths:
+  /device/create:
+    post:
+      summary: Create a new device
+      tags:
+        - Devices
+      requestBody:
+        description: Device data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+      responses:
+        201:
+          description: Device created successfully
+
+  /device/{farm_id}:
+    get:
+      summary: Get devices by farm ID
+      tags:
+        - Devices
+      parameters:
+        - name: farm_id
+          in: path
+          required: true
+          description: ID of the farm
+          schema:
+            type: string
+      responses:
+        200:
+          description: Devices retrieved successfully
+
+  /device/info/{device_id}:
+    get:
+      summary: Get device details by ID
+      tags:
+        - Devices
+      parameters:
+        - name: device_id
+          in: path
+          required: true
+          description: ID of the device
+          schema:
+            type: string
+      responses:
+        200:
+          description: Device details retrieved successfully
+
+  /device/watergatecontrol:
+    post:
+      summary: Create water gate control data
+      tags:
+        - Devices
+      requestBody:
+        description: Water gate control data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deviceId:
+                  type: string
+                status:
+                  type: string
+                timestamp:
+                  type: string
+      responses:
+        201:
+          description: Water gate control data created successfully
+
+    put:
+      summary: Update water gate control data
+      tags:
+        - Devices
+      requestBody:
+        description: Updated water gate control data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deviceId:
+                  type: string
+                status:
+                  type: string
+                timestamp:
+                  type: string
+      responses:
+        200:
+          description: Water gate control data updated successfully
+
+  /device/watergatecontrol/{device_id}:
+    get:
+      summary: Get water gate control data by device ID
+      tags:
+        - Devices
+      parameters:
+        - name: device_id
+          in: path
+          required: true
+          description: ID of the device
+          schema:
+            type: string
+      responses:
+        200:
+          description: Water gate control data retrieved successfully
+
+  /device/telemetry/{farm_id}:
+    get:
+      summary: Get telemetry data by farm ID
+      tags:
+        - Devices
+      parameters:
+        - name: farm_id
+          in: path
+          required: true
+          description: ID of the farm
+          schema:
+            type: string
+      responses:
+        200:
+          description: Telemetry data retrieved successfully
+
+  /farmer/info:
+    post:
+      summary: Create a new farmer
+      tags:
+        - Farmers
+      requestBody:
+        description: Farmer data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        201:
+          description: Farmer created successfully
+
+  /farmer/{farmer_id}:
+    get:
+      summary: Get a farmer by ID
+      tags:
+        - Farmers
+      parameters:
+        - name: farmer_id
+          in: path
+          required: true
+          description: ID of the farmer
+          schema:
+            type: string
+      responses:
+        200:
+          description: Farmer details retrieved successfully
+
+  /farmer/login:
+    post:
+      summary: Farmer login
+      tags:
+        - Farmers
+      requestBody:
+        description: Login credentials
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: Login successful
+
+  /farmer/address:
+    post:
+      summary: Create a new address
+      tags:
+        - Farmers
+      requestBody:
+        description: Address data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                street:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+                zip:
+                  type: string
+      responses:
+        201:
+          description: Address created successfully
+
+    get:
+      summary: Get address by farmer ID
+      tags:
+        - Farmers
+      parameters:
+        - name: farmer_id
+          in: path
+          required: true
+          description: ID of the farmer
+          schema:
+            type: string
+      responses:
+        200:
+          description: Address retrieved successfully
